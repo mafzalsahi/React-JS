@@ -13,9 +13,13 @@ function Signup(){
     const [error,setError]=useState("")
     const {register,handleSubmit}=useForm()
     const create=async (data)=>{
+        const { email, password, fullName } = data; // Extract data from the form
+        console.log("Data Sent to Appwrite:", { email, password, fullName }); // Debugging
         setError("")
+        console.log("Form Data Submitted:", data); // Debugging
         try {
            const userData= await authService.createAccount(data)
+           console.log("Account Created:", userData); // Debugging
            if (userData) {
            const userData= await authService.getCurrentUser()
            if (userData) {
@@ -24,7 +28,8 @@ function Signup(){
            navigate("/")
            }
         } catch (error) {
-            setError(error.message)
+            console.error("Error Creating Account:", error);
+            setError(error.message || "An unexpected error occurred");
         }
     }
     return(

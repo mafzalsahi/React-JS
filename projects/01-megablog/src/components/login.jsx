@@ -13,6 +13,7 @@ function Login(){
     const {register,handleSubmit}=useForm()
     const [error,setError]=useState("")
     const login=async (data)=>{
+        console.log("Form Data: ", data); // Debug the data
         setError("")
         try {
 
@@ -20,6 +21,7 @@ function Login(){
            if (session) {
             const userData=await authService.getCurrentUser()
             if (userData) dispatch(authLogin(userData));
+            console.log("Data Dispatch: ",userData)
             navigate("/")
            }
             
